@@ -20,7 +20,6 @@ CKEDITOR.plugins.add('formatpainter',
 
                             flag = false;
                         } else {
-                            console.log(styleString);
                             if (styleString.length == 0) {
                                 styleString = 'font-family:times new roman,times,serif;font-size:16px;'
                             }
@@ -30,7 +29,9 @@ CKEDITOR.plugins.add('formatpainter',
                                 selection.unlock(true);
                                 selectedText = selection.getNative().createRange().text;
                             }
-                            editor.insertHtml('<span style="' + styleString + '">' + selectedText + '</span>');
+                            if (!selectedText.isCollapsed) {
+                                editor.insertHtml('<span style="' + styleString + '">' + selectedText + '</span>');
+                            }
 
                             styleString = '';
                             flag = true;
